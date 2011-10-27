@@ -21,7 +21,7 @@ public class EmulateData {
 		m.setPublisher("DevMedia");
 		m.setCreated(new Date(2011, 10, 1));
 
-		String[] articleTitles = { "jQuery UI na pr·tica", "AlÈm da IDE ñ Parte 4", "VRaptor 3 ñ Parte 3", "Invers„o de Controle ñ Parte 2", "Dissecando a Java Collections", "Nem parece Web: È Vaadin!", "Acessibilidade em Java", "A import‚ncia dos Padrıes de Projeto" };
+		String[] articleTitles = { "jQuery UI na pr√°tica", "Al√©m da IDE ‚Äì Parte 4", "VRaptor 3 ‚Äì Parte 3", "Invers√£o de Controle ‚Äì Parte 2", "Dissecando a Java Collections", "Nem parece Web: √© Vaadin!", "Acessibilidade em Java", "A import√¢ncia dos Padr√µes de Projeto" };
 		
 		Article[] as = new Article[articleTitles.length];
 		for (int idx = 0; idx < articleTitles.length; idx++) {
@@ -39,7 +39,7 @@ public class EmulateData {
 		m.setPublisher("DevMedia");
 		m.setCreated(new Date(2011, 9, 1));
 		
-		articleTitles = new String[]{ "DistribuiÁ„o de Dados com Java", "Java 7 ñ AperfeiÁoando o Java", "Jython", "JSF com Prevayler", "Spring Security 3, JSF 2 e JPA 2", "Seam 3: complementando a lÛgica com Weld", "Invers„o de Controle ñ Parte 1", "Nem parece Web: È Vaadin! - Parte 1 (Exclusivo)" };
+		articleTitles = new String[]{ "Distribui√ß√£o de Dados com Java", "Java 7 ‚Äì Aperfei√ßoando o Java", "Jython", "JSF com Prevayler", "Spring Security 3, JSF 2 e JPA 2", "Seam 3: complementando a l√≥gica com Weld", "Invers√£o de Controle ‚Äì Parte 1", "Nem parece Web: √© Vaadin! - Parte 1 (Exclusivo)" };
 		as = new Article[articleTitles.length];
 		for (int idx = 0; idx < articleTitles.length; idx++) {
 			as[idx] = new Article();
@@ -56,7 +56,7 @@ public class EmulateData {
 		m.setPublisher("DevMedia");
 		m.setCreated(new Date(2011, 8, 1));
 		
-		articleTitles = new String[]{ "CompilaÁ„o Din‚mica no Java 6", "Seam 3: Weld, a base do novo framework", "Sensores no Android", "VRaptor 3 ñ Parte 2", "AlÈm da IDE ñ Parte 3", "Model Driven Architecture", "Gest„o de Defeitos no Teste de Software" };
+		articleTitles = new String[]{ "Compila√ß√£o Din√¢mica no Java 6", "Seam 3: Weld, a base do novo framework", "Sensores no Android", "VRaptor 3 ‚Äì Parte 2", "Al√©m da IDE ‚Äì Parte 3", "Model Driven Architecture", "Gest√£o de Defeitos no Teste de Software" };
 		as = new Article[articleTitles.length];
 		for (int idx = 0; idx < articleTitles.length; idx++) {
 			as[idx] = new Article();
@@ -73,7 +73,7 @@ public class EmulateData {
 		m.setPublisher("DevMedia");
 		m.setCreated(new Date(2011, 7, 1));
 		
-		articleTitles = new String[]{ "AlÈm da IDE ñ Parte 2", "JBoss Application Server 6", "Interagindo com AplicaÁıes Telecom", "Por dentro do PrimeFaces 2.2", "VRaptor 3 ñ Parte 1", "Primeiros passos com o Spring Integration", "Aspectos com Padrıes de SeguranÁa" };
+		articleTitles = new String[]{ "Al√©m da IDE ‚Äì Parte 2", "JBoss Application Server 6", "Interagindo com Aplica√ß√µes Telecom", "Por dentro do PrimeFaces 2.2", "VRaptor 3 ‚Äì Parte 1", "Primeiros passos com o Spring Integration", "Aspectos com Padr√µes de Seguran√ßa" };
 		as = new Article[articleTitles.length];
 		for (int idx = 0; idx < articleTitles.length; idx++) {
 			as[idx] = new Article();

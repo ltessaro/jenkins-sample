@@ -1,8 +1,15 @@
 package com.jm.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Magazine {	
+public class Magazine implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1772109883969274387L;
+	
 	private int number;
 	private String name;
 	private String publisher;

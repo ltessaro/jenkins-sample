@@ -1,0 +1,119 @@
+<project name="JenkinsSample4" basedir="." default="main">
+	<property name="src.dir"     value="src"/>
+    <property name="test.dir"    value="tests"/>
+    <property name="build.dir"   value="build"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="classes.test.dir" value="${build.dir}/tests"/>
+	<property name="instr.dir" 	 value="${build.dir}/instr-classes" />
+	<property name="report.dir"  value="${build.dir}/report"/>
+	<property name="lib.dir" 	 value="lib"/>
+	<property name="web.dir"  	 value="WebContent"/>
+	<property name="jar.dir"     value="${web.dir}/WEB-INF/lib"/>
+    <property name="webinf.dir"  value="${web.dir}/WEB-INF"/>
+	<property name="war.dir"     value="${build.dir}/application"/>
+
+	<!-- PathIDs -->
+	<path id="test.classpath">
+        <pathelement location="${classes.dir}"/>
+    	<pathelement location="${instr.dir}"/>
+        <pathelement location="${lib.dir}/emma.jar"/>
+	    <pathelement location="${lib.dir}/emma_ant.jar" />
+    </path>
+
+
+	<!-- TASKDEFs -->
+	<taskdef name="javancss" classname="javancss.JavancssAntTask" classpath="${lib.dir}/ccl.jar;${lib.dir}/javancss.jar;${lib.dir}/javacc.jar;${lib.dir}/jhbasic.jar"/>
+	
+	<taskdef resource="emma_ant.properties">
+		<classpath>
+			<pathelement location="${instr.dir}" />
+		    <pathelement location="${lib.dir}/junit-4.10.jar" />
+		    <pathelement location="${lib.dir}/emma.jar" />
+		    <pathelement location="${lib.dir}/emma_ant.jar" />
+		</classpath>
+	</taskdef>
+
+	
+	<target name="clean">
+		<delete dir="${report.dir}"/>
+		<delete dir="${classes.dir}"/>
+		<delete dir="${instr.dir}"/>
+		<delete dir="${war.dir}"/>
+		
+		<mkdir dir="${report.dir}"/>
+		<mkdir dir="${instr.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+    	<mkdir dir="${war.dir}"/>
+	</target>
+
+	<target name="jdepend" >
+		<jdepend outputfile="${report.dir}/jdepend.xml" fork="yes" format="xml">
+		    <classespath>
+		        <pathelement location="${src.dir}"/>
+		    </classespath>
+		    <classpath>
+		        <pathelement location="${classes.dir}"/>
+		        <pathelement location="${lib.dir}/jdepend-2.9.1.jar"/>
+		    </classpath>
+		</jdepend>
+	</target>
+	
+	<target name="javancss">
+   		<javancss srcdir="${src.dir}" generateReport="true" outputfile="${report.dir}/javancss_metrics.xml" format="xml" includes="**/*.java"/>
+	</target>
+
+	
+    <target name="generate-war">
+    	<war destfile="${war.dir}/jmagazine.war" webxml="${webinf.dir}/web.xml" basedir="${war.dir}">
+    		<webinf dir="${webinf.dir}" includes="sun-jaxws.xml"/>
+    		<lib dir="${jar.dir}" />
+	        <classes dir="${classes.dir}" />
+		</war>
+	</target>      
+	
+	
+
+	<target name="coverage.instrumentation">
+        <emma>
+			<instr instrpath="${classes.dir}" outdir="${instr.dir}" mode="copy" outfile="${report.dir}/metadata.em" merge="false">
+            	<filter excludes="*Test*"/>
+           	</instr>
+        </emma>
+        <!-- Update the that will run the instrumented code -->
+	</target>
+
+	<target name="coverage.report" depends="coverage.instrumentation, junit">
+		<emma>
+        	<report sort="+name,+class,+method,+block" sourcepath="${src.dir}">
+				<fileset dir="${report.dir}" includes="*.em"/>
+				<html outfile="${report.dir}/index.html" depth="method" columns="name,class,method,block,line"/>
+			</report>
+        </emma>
+	</target>
+
+	<target name="compile">
+	    <javac destdir="${classes.dir}" srcdir="${src.dir}"/>
+		<javac destdir="${classes.dir}" srcdir="${test.dir}"/>
+	</target>
+	
+	<target name="junit">
+		<junit printsummary="yes" haltonfailure="no" fork="yes" showoutput="true">
+			<classpath>
+				<path refid="test.classpath"/>
+			</classpath>
+            <jvmarg value="-Demma.coverage.out.file=${report.dir}/coverage.em"/>
+	        <jvmarg value="-Demma.coverage.out.merge=true" />
+        	
+    	    <formatter type="xml" />  
+            
+            <batchtest fork="yes" todir="${report.dir}">
+                <fileset dir="${classes.dir}" includes="**/*Test*"/>
+            </batchtest>
+        </junit>
+    </target>
+    
+    <target name="clean-build" depends="clean,compile"/>
+	<target name="full-build" depends="clean-build,jdepend,javancss,coverage.report,generate-war"/>
+
+	<target name="main" depends="clean-build"/>
+</project>

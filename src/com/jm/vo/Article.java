@@ -1,8 +1,15 @@
 package com.jm.vo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Article {
+public class Article implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7765052377384192126L;
+	
 	private String title = "It is a sample text.";
 	private String text;
 	private Date published;
@@ -32,11 +39,11 @@ public class Article {
 		this.published = published;
 	}
 
-	public Magazine getMagazine() {
+	Magazine getMagazine() {
 		return magazine;
 	}
 
-	public void setMagazine(Magazine magazine) {
+	void setMagazine(Magazine magazine) {
 		this.magazine = magazine;
 		if (this.published == null && this.magazine != null)
 			setPublished(this.magazine.getCreated());
